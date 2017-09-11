@@ -111,6 +111,10 @@ gsql_instance { $machine_name:
           value => '104.197.210.80/32',
         },
         {
+          name  => 'Current server',
+          value => "${current_server}/32",
+        },
+        {
           name  => 'Legacy server',
           value => "${legacy_server}/32",
         },
