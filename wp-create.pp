@@ -92,6 +92,12 @@ gcompute_instance { $machine_name:
 }
 
 #-----
+# Dependencies
+
+$legacy_server = '13.59.50.69'
+$current_server = $legacy_server
+
+#-----
 # Creates the database
 
 gsql_instance { $machine_name:
@@ -106,7 +112,7 @@ gsql_instance { $machine_name:
         },
         {
           name  => 'Legacy server',
-          value => '13.59.50.69/32',
+          value => "${legacy_server}/32",
         },
       ],
     },
@@ -124,4 +130,24 @@ gsql_user { 'wordpress':
   instance   => $machine_name,
   project    => 'graphite-demo-puppet-webinar1',
   credential => 'cred',
+}
+
+#-----
+# Creates the DNS records
+
+gdns_managed_zone { 'eclipsecorner-org':
+  ensure     => present,
+  dns_name   => 'eclipsecorner.org.',
+  project    => 'graphite-demo-puppet-webinar1',
+  credential => 'cred',
+}
+
+gdns_resource_record_set { 'www.eclipsecorner.org.':
+  ensure       => present,
+  managed_zone => 'eclipsecorner-org',
+  type         => 'A',
+  target       => $current_server,
+  ttl          => 5,
+  project      => 'graphite-demo-puppet-webinar1',
+  credential   => 'cred',
 }
