@@ -90,38 +90,3 @@ gcompute_instance { $machine_name:
   project            => 'graphite-demo-puppet-webinar1',
   credential         => 'cred',
 }
-
-#-----
-# Creates the database
-
-gsql_instance { $machine_name:
-  ensure           => present,
-  database_version => 'MYSQL_5_7',
-  settings         => {
-    ip_configuration => {
-      authorized_networks => [
-        {
-          name  => 'Admin workstation',
-          value => '104.197.210.80/32',
-        },
-        {
-          name  => 'Legacy server',
-          value => '13.59.50.69/32',
-        },
-      ],
-    },
-    tier             => 'db-n1-standard-1',
-  },
-  region           => 'us-central1',
-  project          => 'graphite-demo-puppet-webinar1',
-  credential       => 'cred',
-}
-
-gsql_user { 'wordpress':
-  ensure     => present,
-  password   => 'secret-password',
-  host       => '%',
-  instance   => $machine_name,
-  project    => 'graphite-demo-puppet-webinar1',
-  credential => 'cred',
-}
