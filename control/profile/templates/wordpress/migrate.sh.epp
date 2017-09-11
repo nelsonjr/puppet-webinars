@@ -1,0 +1,13 @@
+<%- |
+  String $password,
+  String $host_ip,
+  String $db_ip
+| -%>
+#!/usr/bin/env bash
+
+set -e
+
+mysqldump wordpress | mysql --host=<%= db_ip %> --password=<%= password %> -u wp-db wordpress
+rsync -avzPH -e "ssh -i /home/wp-user/.ssh/id_rsa" /opt/wordpress/wp-content/uploads wp-user@<%= $host_ip %>:/opt/wordpress/wp-content/
+
+touch /root/migration_completed

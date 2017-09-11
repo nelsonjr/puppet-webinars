@@ -1,0 +1,12 @@
+<%- | String $host,
+      String $password,
+      String $cloud 
+| -%>
+[client]
+<% if $cloud == 'gce' { -%>
+user=root
+<% } else { -%>
+user=admin
+<% } -%>
+host=<%= $host %>
+password=<%= $password %>
