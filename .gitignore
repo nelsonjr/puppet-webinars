@@ -1,0 +1,3 @@
+# We want neither deleting our credential file nor checking it under source
+# control.
+my_account.json
