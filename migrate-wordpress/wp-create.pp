@@ -31,11 +31,11 @@ gcompute_network { 'default':
   credential => 'cred',
 }
 
-if $machine_name == undef {
+if $facts['machine_name'] == undef {
   fail('Fact "machine_name" has to be defined')
 }
 
-gcompute_address { $machine_name:
+gcompute_address { $facts['machine_name']:
   ensure     => present,
   region     => 'us-central1',
   project    => 'graphite-demo-puppet-webinar1',
@@ -48,7 +48,7 @@ $fn_auth = gauth_credential_for_function(
   ['https://www.googleapis.com/auth/cloud-platform']
 )
 
-$wp_address = gcompute_address_ip($machine_name, 'us-central1',
+$wp_address = gcompute_address_ip($facts['machine_name'], 'us-central1',
                                   'graphite-demo-puppet-webinar1', $fn_auth)
 
 if ! $wp_address {
@@ -56,7 +56,7 @@ if ! $wp_address {
 } else {
   info("Wordpress server @ ${wp_address}")
 
-  gsql_instance { $machine_name:
+  gsql_instance { $facts['machine_name']:
     ensure           => present,
     database_version => 'MYSQL_5_7',
     settings         => {
@@ -83,27 +83,27 @@ if ! $wp_address {
     credential       => 'cred',
   }
 
-  gsql_user { 'wordpress':
+  gsql_user { 'root':
     ensure     => present,
-    password   => 'secret-password',
+    password   => 'super-secret-password',
     host       => '%',
-    instance   => $machine_name,
+    instance   => $facts['machine_name'],
     project    => 'graphite-demo-puppet-webinar1',
     credential => 'cred',
   }
 }
 
-gcompute_disk { $machine_name:
+gcompute_disk { $facts['machine_name']:
   ensure       => present,
   size_gb      => 50,
-  source_image => gcompute_image_family('centos-7', 'centos-cloud'),
+  source_image => gcompute_image_family('ubuntu-1604-lts', 'ubuntu-os-cloud'),
   zone         => 'us-central1-c',
   project      => 'graphite-demo-puppet-webinar1',
   credential   => 'cred',
 }
 
 # Fetch the IP address of the SQL database
-$wp_db_address = gsql_instance_ip($machine_name,
+$wp_db_address = gsql_instance_ip($fact['machine_name'],
                                   'graphite-demo-puppet-webinar1', $fn_auth)
 
 if ! $wp_db_address {
@@ -111,19 +111,19 @@ if ! $wp_db_address {
 } else {
   info("Wordpress database @ ${wp_db_address}")
 
-  gcompute_instance { $machine_name:
+  gcompute_instance { $facts['machine_name']:
     ensure             => present,
     machine_type       => 'n1-standard-2',
     disks              => [
       {
         boot        => true,
-        source      => $machine_name,
+        source      => $facts['machine_name'],
         auto_delete => true,
       },
     ],
     metadata           => [
       {
-        'startup-script-url'  => 
+        'startup-script-url'  =>
           'https://puppet-enterprise:8140/packages/current/install.bash',
         'database-ip-address' => $wp_db_address,
       },
@@ -134,7 +134,7 @@ if ! $wp_db_address {
         access_configs => [
           {
             name   => 'External NAT',
-            nat_ip => $machine_name,
+            nat_ip => $facts['machine_name'],
             type   => 'ONE_TO_ONE_NAT',
           },
         ],
