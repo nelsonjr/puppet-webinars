@@ -16,7 +16,7 @@ logger -t bootstrapper 'Starting bootstrap'
 curl -O https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb
 dpkg -i puppetlabs-release-pc1-xenial.deb
 apt-get update
-apt-get install -y puppet-agent
+apt-get install -y puppet-agent=1.10.5-1xenial
 
 #---------
 # Google Stackdriver Logging Agent
@@ -25,6 +25,12 @@ logger -t bootstrapper 'Installing Google Stackdriver logging agent'
 ${puppet} module install google-glogging
 ${puppet} apply -e 'include glogging::agent'
 logger -t bootstrapper 'Google Stackdriver logging agent installed'
+
+#---------
+# Remove agent to not bother master install script
+
+dpkg --purge puppet-agent
+dpkg --purge puppetlabs-release-pc1
 
 #---------
 # Puppet Master X.509 certificate install
