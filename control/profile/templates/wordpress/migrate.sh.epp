@@ -5,6 +5,13 @@
 | -%>
 #!/usr/bin/env bash
 
+# This script handles the migration of our Wordpress instance's database and
+# uploaded image data.  This is setup in this way so it can easily be ran with
+# or without Puppet, completely up to the comfort of the administrator.
+
+# To have this script run automatically than set the parameter "auto_migrate"
+# on Class['profile::wordpress::migrate'].
+
 set -e
 
 mysqldump wordpress | mysql --host=<%= db_ip %> --password=<%= password %> -u wp-db wordpress
