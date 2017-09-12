@@ -83,7 +83,7 @@ if ! $wp_address {
     credential       => 'cred',
   }
 
-  gsql_user { 'root':
+  gsql_user { 'migration':
     ensure     => present,
     password   => 'super-secret-password',
     host       => '%',
@@ -103,7 +103,7 @@ gcompute_disk { $facts['machine_name']:
 }
 
 # Fetch the IP address of the SQL database
-$wp_db_address = gsql_instance_ip($fact['machine_name'],
+$wp_db_address = gsql_instance_ip($facts['machine_name'],
                                   'graphite-demo-puppet-webinar1', $fn_auth)
 
 if ! $wp_db_address {
@@ -139,6 +139,9 @@ if ! $wp_db_address {
           },
         ],
       },
+    ],
+    tags               => [
+      'http-server',
     ],
     zone               => 'us-central1-c',
     project            => 'graphite-demo-puppet-webinar1',
