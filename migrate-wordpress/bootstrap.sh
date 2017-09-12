@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -x
-
 metadata() {
   local -r attr=$1
   local -r metadata_ep='http://metadata/computeMetadata/v1beta1/'
