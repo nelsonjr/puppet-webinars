@@ -9,7 +9,7 @@
 #   - Enable Apache vhost for Wordpress
 #
 class profile::wordpress(
-  String $db_host,
+  String $db_host = $facts['gce']['instance']['attributes']['database-ip-address'],
   String $root_db_password,
   String $db_password
 ) {
