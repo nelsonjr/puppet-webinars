@@ -12,13 +12,13 @@ class profile::wordpress::migrate::prep {
   # can rsync images.
   #
   # Query will return all the "wp_user_ssh_pub" facts.
-  $source_keys_query = 'facts { name = "wp_user_ssh_pub" }'
+  $source_keys_query = 'facts[value] { name = "wp_user_ssh_pub" }'
 
   # Run query previously defined against PuppetDB and return the value found
-  $source_keys = any2array(puppetdb_query($source_keys_query)[0]['value'])
+  $source_keys = puppetdb_query($source_keys_query).map |$key| { $key['value'] }
 
   # Place the discovered value into authorized_keys file.
-  file { '/home/wp-user/.ssh/authroized_keys':
+  file { '/home/wp-user/.ssh/authorized_keys':
     ensure   => file,
     content  => $source_keys.sort.join("\n"),
     owner    => 'wp-user',

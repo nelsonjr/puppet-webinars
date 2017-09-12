@@ -9,9 +9,10 @@
 #   - Enable Apache vhost for Wordpress
 #
 class profile::wordpress(
-  String $db_host = $facts['gce']['instance']['attributes']['database-ip-address'],
-  String $root_db_password,
-  String $db_password
+  String  $db_host = $facts['gce']['instance']['attributes']['database-ip-address'],
+  String  $root_db_password,
+  String  $db_password,
+  Boolean $staged = false
 ) {
 
   # A few extra packages that are required Wordpress to work in MySQL...plus
@@ -46,16 +47,20 @@ class profile::wordpress(
   # Wordpress Puppet module (https://forge.puppet.com/hunner/wordpress) that
   # handles the retrieval, unpacking, and configuration of a Wordpress instance.
   class { 'wordpress':
-    wp_owner       => 'wp-user',
-    wp_group       => 'wp-group',
-    db_name        => 'wordpress',
-    db_user        => 'wp-db',
-    db_password    => $db_password,
-    db_host        => $db_host,
-    create_db_user => false,
-    create_db      => false,
-    version        => '4.8.1',
-    require        => Package[$required_packages],
+    wp_owner             => 'wp-user',
+    wp_group             => 'wp-group',
+    wp_additional_config => $staged ? {
+      true => 'profile/wordpress/additional.erb',
+      default => undef,
+    },
+    db_name              => 'wordpress',
+    db_user              => 'wp-db',
+    db_password          => $db_password,
+    db_host              => $db_host,
+    create_db_user       => false,
+    create_db            => false,
+    version              => '4.8.1',
+    require              => Package[$required_packages],
   }
 
   # Wordpress module sets up a standard user but doesn't manage the home

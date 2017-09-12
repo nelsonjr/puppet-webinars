@@ -50,7 +50,7 @@ class profile::wordpress::migrate(Boolean $auto_migrate = false) {
 
   # Runs the db query defined earlier against PuppetDB and then drills down to
   # return the Class resource's parameter list we can use them later.
-  $db_target = puppetdb_query($db_target_query)[0]['parameters']['
+  $db_target = puppetdb_query($db_target_query)[0]['parameters']
 
   # A very simple  epp template that builds a bash script that is used to
   # migrate our database and image data.

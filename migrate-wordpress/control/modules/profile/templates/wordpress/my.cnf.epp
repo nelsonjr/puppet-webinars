@@ -4,7 +4,7 @@
 | -%>
 [client]
 <% if $cloud == 'gce' { -%>
-user=root
+user=migration
 <% } else { -%>
 user=admin
 <% } -%>
