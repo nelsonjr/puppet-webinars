@@ -12,6 +12,13 @@ declare -r start_time=$(date +%s)
 logger -t bootstrapper 'Starting bootstrap'
 
 #---------
+# Install the Puppet Agent (for logging with Stackdriver)
+curl -O https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb
+dpkg -i puppetlabs-release-pc1-xenial.deb
+apt-get update
+apt-get install -y puppet-agent
+
+#---------
 # Google Stackdriver Logging Agent
 
 logger -t bootstrapper 'Installing Google Stackdriver logging agent'
