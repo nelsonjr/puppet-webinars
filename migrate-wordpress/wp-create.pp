@@ -126,17 +126,17 @@ if ! $wp_db_address {
     ],
     metadata           => [
       {
-        # A startup script that installs the master's certificate, Google Cloud
+        # A startup script that installs the CA certificate, Google Cloud
         # Logging, and defer to Puppet Agent installer script.
         'startup-script-url'     =>
           'gs://graphite-demo-puppet-webinar1/bootstrap.sh',
         # The URL of the Puppet Agent installer
         'puppet-agent-installer' =>
           "https://${master_server}:8140/packages/current/install.bash",
-        # A trusted location where to fetch master's certificate (if not
-        # publicly trusted, or trusted by the image being deployed already).
-        'puppet-master-cert'     =>
-          'gs://graphite-demo-puppet-webinar1/puppet-master-cert.pem',
+        # A trusted location where to fetch CA certificate (if not publicly
+        # trusted, or trusted by the image being deployed already).
+        'puppet-ca-cert'         =>
+          'gs://graphite-demo-puppet-webinar1/puppet-ca-cert.pem',
         # The IP address of the SQL database, accessible from the server.
         'database-ip-address'    => $wp_db_address,
       },
