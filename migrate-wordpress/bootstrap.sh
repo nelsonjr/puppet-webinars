@@ -1,5 +1,7 @@
 #!/bin/bash
 
+declare -r puppet='/opt/puppetlabs/bin/puppet'
+
 metadata() {
   local -r attr=$1
   local -r metadata_ep='http://metadata/computeMetadata/v1beta1/'
@@ -11,13 +13,15 @@ logger -t bootstrapper 'Starting bootstrap'
 
 #---------
 # Google Stackdriver Logging Agent
+
 logger -t bootstrapper 'Installing Google Stackdriver logging agent'
-puppet module install google-glogging
-puppet apply -e 'include glogging::agent'
+${puppet} module install google-glogging
+${puppet} apply -e 'include glogging::agent'
 logger -t bootstrapper 'Google Stackdriver logging agent installed'
 
 #---------
 # Puppet Master X.509 certificate install
+
 declare -r ca_cert=$(metadata puppet-ca-cert)
 declare -r local_ca_cert="${HOME}/puppet-ca.pem"
 logger -t bootstrapper "Puppet Master certificate @ ${ca_cert}"
@@ -27,6 +31,7 @@ logger -t bootstrapper Done installing Puppet Master X.509 certificate
 
 #---------
 # Defer to Puppet Agent installer
+
 declare -r agent_install=$(metadata puppet-agent-installer)
 declare -r local_agent_installer="${HOME}/puppet-agent-install.sh"
 logger -t bootstrapper "Deferring to Puppet Agent installer @ ${agent_install}"
