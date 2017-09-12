@@ -111,6 +111,9 @@ if ! $wp_db_address {
 } else {
   info("Wordpress database @ ${wp_db_address}")
 
+  $master_server = 'puppet-enterprise.c.graphite-demo-puppet-webinar1.internal'
+  info("Puppet Master @ ${master_server}")
+
   gcompute_instance { $facts['machine_name']:
     ensure             => present,
     machine_type       => 'n1-standard-2',
@@ -123,9 +126,19 @@ if ! $wp_db_address {
     ],
     metadata           => [
       {
-        'startup-script-url'  =>
-          'https://puppet-enterprise:8140/packages/current/install.bash',
-        'database-ip-address' => $wp_db_address,
+        # A startup script that installs the master's certificate, Google Cloud
+        # Logging, and defer to Puppet Agent installer script.
+        'startup-script-url'     =>
+          'gs://graphite-demo-puppet-webinar1/bootstrap.sh',
+        # The URL of the Puppet Agent installer
+        'puppet-agent-installer' =>
+          "https://${master_server}:8140/packages/current/install.bash",
+        # A trusted location where to fetch master's certificate (if not
+        # publicly trusted, or trusted by the image being deployed already).
+        'puppet-master-cert'     =>
+          'gs://graphite-demo-puppet-webinar1/puppet-master-cert.pem',
+        # The IP address of the SQL database, accessible from the server.
+        'database-ip-address'    => $wp_db_address,
       },
     ],
     network_interfaces => [
