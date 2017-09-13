@@ -68,6 +68,7 @@ class profile::wordpress::migrate(Boolean $auto_migrate = false) {
   if $auto_migrate {
     exec { 'automatic migration':
       command => '/root/migrate.sh',
+      path    => '/bin:/usr/bin',
       creates => '/root/migration_completed',
     }
   }
