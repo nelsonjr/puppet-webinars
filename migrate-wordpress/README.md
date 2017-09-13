@@ -22,8 +22,9 @@ your eclipse needs:
   GCP
 - DNS servers for `eclipsecorner.org` hosted by Google Cloud DNS
 
-> The site DNS is already being served by Google Cloud DNS (for the sake of
-> simplicity and time, avoiding update root DNS servers and replication).
+> The site DNS is already being served by Google Cloud DNS, for the sake of
+> simplicity and time, and avoiding the need to update root DNS servers and
+> wait for replication.
 >
 > In the beginning of the process the DNS entry `www.eclipsecorner.org` is
 > pointing to the original Wordpress instance hosted outside GCP.
@@ -57,10 +58,10 @@ your eclipse needs:
 - `startup-script-url`: points to the secure location of `bootstrap.sh`
 - `puppet-ca-cert`: points to the location of `puppet-ca-cert.pem`
 - `puppet-agent-installer`: points to the `https://` location of the Puppet
-  agent install script. _(for Puppet Enterprise that address is usually
-  `https://{fqdn-server-name}:8140/packages/current/install.bash`)_
+  agent install script. _For Puppet Enterprise that address is usually
+  `https://{fqdn-server-name}:8140/packages/current/install.bash`._
 - `database-ip-address`: points to the IP Address of the Cloud SQL instance to
-  host Wordpress data. _(this value is handled by `wp-create.pp` automatically)_
+  host Wordpress data. _This value is managed by `wp-create.pp`._
 
 ## Running `wp-create.pp`
 
