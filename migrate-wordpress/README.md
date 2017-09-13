@@ -111,7 +111,7 @@ Example (we chose to define the fact as environment variable):
 TODO(ody): Please fill this in.
 
 3. On Google Cloud Platform
-    - Run #4: `puppet apply wp-create.pp` _(without `staging=1`)_:
+    - Run #4: `puppet apply wp-create.pp` _(**without** `staging=1`)_:
       Flips DNS record from old legacy site to new GCP Wordpress infrastructure
     
 
