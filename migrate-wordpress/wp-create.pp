@@ -146,6 +146,7 @@ if ! $wp_db_address {
         network        => 'default',
         access_configs => [
           {
+            # Associates the static IP for inbound network (from the Internet).
             name   => 'External NAT',
             nat_ip => $facts['machine_name'],
             type   => 'ONE_TO_ONE_NAT',
@@ -153,9 +154,24 @@ if ! $wp_db_address {
         ],
       },
     ],
-    tags               => [
-      'http-server',
-    ],
+    service_accounts   => {
+      scopes => [
+        # Enable Cloud Storage so we can access the bootstrap.sh startup script.
+        'https://www.googleapis.com/auth/devstorage.read_only',
+
+        # Enable Stackdriver Logging API access
+        'https://www.googleapis.com/auth/logging.write',
+      ],
+    },
+    # In a future release tags will be replaced to be a straight array instead
+    # of tags { items [ .... ] }
+    tags               => {
+      items => [
+        # Default firewall rule only allows HTTP access to machines with
+        # http-server tag attached to them.
+        'http-server',
+      ],
+    },
     zone               => 'us-central1-c',
     project            => 'graphite-demo-puppet-webinar1',
     credential         => 'cred',
