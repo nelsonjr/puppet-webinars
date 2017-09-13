@@ -53,7 +53,18 @@ your eclipse needs:
 - `puppet-ca-cert.pem` be available in a Google Cloud Storage bucket (or
   other verifiable HTTPS or secure location
 
-### Instance Metadata
+### Instance
+
+#### Scopes
+
+The migration requires the following scopes to be present on the machine:
+
+- `https://www.googleapis.com/auth/devstorage.read_only`
+   to enable Cloud Storage so we can access the bootstrap.sh startup script
+- `https://www.googleapis.com/auth/logging.write`
+   to enable Stackdriver Logging API access and write logs
+
+#### Metadata
 
 - `startup-script-url`: points to the secure location of `bootstrap.sh`
 - `puppet-ca-cert`: points to the location of `puppet-ca-cert.pem`
