@@ -1,8 +1,15 @@
 # Migrating a live Wordpress to Google Cloud Platform
 
+In this webinar we will migrate a live Wordpress site to Google Cloud Platform
+(GCP), without interruption of service to end users.
+
+Our target site is [`http://www.eclipsecorner.org`][site], a one stop shop for
+your eclipse needs:
+
+![Site Screenshot](site.png)
+
 ## Contents
 
-- [Introduction](#introduction)
 - [Links](#links)
 - [Setup (before migration)](#setup-before-migration)
 - [Artifacts](#artifacts)
@@ -14,16 +21,6 @@
         - [Metadata](#metadata)
 - [Running `wp-create.pp`](#running-wp-createpp)
 - [Migration Plan](#migration-plan)
-
-## Introduction
-
-In this webinar we will migrate a live Wordpress site to Google Cloud Platform
-(GCP), without interruption of service to end users.
-
-Our target site is [`http://www.eclipsecorner.org`][site], a one stop shop for
-your eclipse needs:
-
-![Site Screenshot](site.png)
 
 ## Links
 
