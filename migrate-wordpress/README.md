@@ -67,15 +67,12 @@ your eclipse needs:
 
 ### Modules
 
-### On Admin Workstation
-
-- [`google/gauth`][google-gauth]
-- [`google/gcompute`][google-gcompute]
-- [`google/gsql`][google-sql]
-
-### On Puppet Master
-
-Refer to [`control/Puppetfile`][puppetfile] for complete list.
+- On Admin Workstation
+    * [`google/gauth`][google-gauth]
+    * [`google/gcompute`][google-gcompute]
+    * [`google/gsql`][google-sql]
+- On Puppet Master
+    * Refer to [`control/Puppetfile`][puppetfile] for complete list.
 
 ### Files
 
