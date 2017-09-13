@@ -13,6 +13,7 @@ your eclipse needs:
 
 - Wordpress is running on a machine outside GCP
 - Wordpress database is hosted ourside the machine running the server
+- DNS servers for `eclipsecorner.org` hosted by Google Cloud DNS
 
 > The site DNS is already being served by Google Cloud DNS (for the sake of
 > simplicity and time, avoiding update root DNS servers and replication).
@@ -43,7 +44,7 @@ your eclipse needs:
 1. On Google Cloud Platform
     - Allocate a static IP address for Wordpress
     - Create a Cloud SQL instance to host Wordpress data
-      > Lockdown the SQL instance to only allow access from the Wordpress server
+> Lockdown the SQL instance to only allow access from the Wordpress server
     - Create a Google Compute Engine machine to host the 
 
 2. On Puppet Enterprise
