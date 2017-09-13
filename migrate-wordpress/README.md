@@ -12,7 +12,7 @@
         - [Security Scopes](#security-scopes)
         - [Metadata](#metadata)
 - [Running `wp-create.pp`](#running-wp-createpp)
-- [Migration Plan][]
+- [Migration Plan](#migration-plan)
 
 ## Introduction
 
