@@ -40,6 +40,23 @@ your eclipse needs:
 - [`control/Puppetfile`][puppetfile]: The module dependencies to be installed on
   the Puppet Master.
 
+## Dependencies
+
+- `bootstrap.sh` be available in a Google Cloud Storage bucket, or other
+  verifiable HTTPS or secure location
+- `puppet-ca-cert.pem` be available in a Google Cloud Storage bucket (or
+  other verifiable HTTPS or secure location
+
+### Instance Metadata
+
+- `startup-script-url`: points to the secure location of `bootstrap.sh`
+- `puppet-ca-cert`: points to the location of `puppet-ca-cert.pem`
+- `puppet-agent-installer`: points to the `https://` location of the Puppet
+  agent install script. _(for Puppet Enterprise that address is usually
+  `https://{fqdn-server-name}:8140/packages/current/install.bash`)_
+- `database-ip-address`: points to the IP Address of the Cloud SQL instance to
+  host Wordpress data. _(this value is handled by `wp-create.pp` automatically)_
+
 ## Running `wp-create.pp`
 
 ### `staging` fact
@@ -69,13 +86,20 @@ Example (we chose to define the fact as environment variable):
     FACTER_staging=1 FACTER_machine_name=wordpress-1 puppet apply wp-create.pp
 
 ## Migration Plan
+ 
+> Remember to run all `puppet apply wp-create.pp` with the `staging=1` fact
+> defined to avoid flipping the DNS records prematurely and cause service
+> interruption.
 
 1. On Google Cloud Platform
-    - `puppet apply wp-create.pp`:
+    - Run #1: `puppet apply wp-create.pp`:
       Allocate a static IP address for Wordpress
-    - `puppet apply wp-create.pp`:
+    - Run #2: `puppet apply wp-create.pp`:
       Create a Cloud SQL instance to host Wordpress data
-> Lockdown the SQL instance to only allow access from the Wordpress server
+      > ... and lockdown the SQL instance to only allow access from the Wordpress
+      > server
+    - Run #3: `puppet apply wp-create.pp`:
+      Create a machine to host the Wordpress server
     - Create a Google Compute Engine machine to host the 
 
 2. On Puppet Enterprise
