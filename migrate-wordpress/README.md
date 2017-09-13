@@ -105,12 +105,15 @@ Example (we chose to define the fact as environment variable):
       > server
     - Run #3: `puppet apply wp-create.pp`:
       Create a machine to host the Wordpress server
-    - Create a Google Compute Engine machine to host the 
 
 2. On Puppet Enterprise
 
+TODO(ody): Please fill this in.
 
-## References
+3. On Google Cloud Platform
+    - Run #4: `puppet apply wp-create.pp` _(without `staging=1`)_:
+      Flips DNS record from old legacy site to new GCP Wordpress infrastructure
+    
 
 [site]: http://www.eclipsecorner.org
 [pe-demo]: https://pe-demo.graphite.cloudnativeapp.com
