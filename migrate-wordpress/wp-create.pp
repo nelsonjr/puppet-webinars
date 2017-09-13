@@ -1,3 +1,13 @@
+#----------------------------------------------------------
+# ____ ____ ____ ____ _    ____    ____ _    ____ _  _ ___  
+# | __ |  | |  | | __ |    |___    |    |    |  | |  | |  \ 
+# |__] |__| |__| |__] |___ |___    |___ |___ |__| |__| |__/ 
+#
+# Live migration of Wordpress to Google Cloud Platform
+
+#-----
+# Credentials & privileges
+
 gauth_credential { 'cred':
   provider => serviceaccount,
   path     => '/opt/admin/my_account.json',
@@ -8,6 +18,9 @@ gauth_credential { 'cred':
 }
 
 $legacy_server = '13.59.50.69'
+
+#-----
+# Infrastructure dependencies
 
 gcompute_region { 'us-central1':
   project    => 'graphite-demo-puppet-webinar1',
@@ -35,6 +48,9 @@ if $facts['machine_name'] == undef {
   fail('Fact "machine_name" has to be defined')
 }
 
+#-----
+# Static IP address for the Wordpress server
+
 gcompute_address { $facts['machine_name']:
   ensure     => present,
   region     => 'us-central1',
@@ -55,6 +71,9 @@ if ! $wp_address {
   warning("Skipping SQL setup because IP address is just allocated. Run again.")
 } else {
   info("Wordpress server @ ${wp_address}")
+
+  #-----
+  # MySQL database to host all Wordpress data
 
   gsql_instance { $facts['machine_name']:
     ensure           => present,
@@ -83,6 +102,9 @@ if ! $wp_address {
     credential       => 'cred',
   }
 
+  #-----
+  # SQL user with privileges to migrate the Wordpress data
+
   gsql_user { 'migration':
     ensure     => present,
     password   => 'super-secret-password',
@@ -92,6 +114,9 @@ if ! $wp_address {
     credential => 'cred',
   }
 }
+
+#-----
+# An Ubuntu 16.04 system image to use as Wordpress server
 
 gcompute_disk { $facts['machine_name']:
   ensure       => present,
@@ -113,6 +138,9 @@ if ! $wp_db_address {
 
   $master_server = 'puppet-enterprise.c.graphite-demo-puppet-webinar1.internal'
   info("Puppet Master @ ${master_server}")
+
+  #-----
+  # Virtual machine to run Wordpress server
 
   gcompute_instance { $facts['machine_name']:
     ensure             => present,
@@ -178,6 +206,9 @@ if ! $wp_db_address {
   }
 }
 
+#-----
+# The DNS zone that serves eclipsecorner.org.
+
 gdns_managed_zone { 'eclipsecorner-org':
   ensure     => present,
   dns_name   => 'eclipsecorner.org.',
@@ -196,6 +227,12 @@ if ! $wp_address {
   }
 
   info("${dns_rr_name}.eclipsecorner.org @ ${wp_address}")
+
+  #-----
+  # Update our DNS records to point to the new Wordpress server
+  #
+  # Depending on $facts['staging'] it will update either
+  # staging.eclipsecorner.org or www.eclipsecorner.org.
 
   gdns_resource_record_set { "${dns_rr_name}.eclipsecorner.org.":
     ensure       => present,
