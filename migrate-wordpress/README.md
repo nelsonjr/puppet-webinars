@@ -8,6 +8,11 @@ your eclipse needs:
 
 ![Site Screenshot](site.png)
 
+## Links
+
+- [Webinar Site][migrate-wordpress-webinar]
+- Recorded Session (coming soon)
+- Slides (coming soon)
 
 ## Setup (before migration)
 
@@ -105,9 +110,13 @@ Example (we chose to define the fact as environment variable):
 2. On Puppet Enterprise
 
 
+## References
+
 [site]: http://www.eclipsecorner.org
 [pe-demo]: https://pe-demo.graphite.cloudnativeapp.com
 [bootstrap]: bootstrap.sh
 [wp-create]: wp-create.pp
 [profile]: control/modules/profile
 [puppetfile]: control/Puppetfile
+
+[migrate-wordpress-webinar]: https://www.brighttalk.com/webcast/10619/276851

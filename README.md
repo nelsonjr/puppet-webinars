@@ -9,6 +9,7 @@ without interruption of service to end users.
 
 - [Webinar Site][migrate-wordpress-webinar]
 - Recorded Session (coming soon)
+- Slides (coming soon)
 - [Source Code][migrate-wordpress-source] used during webinar
 
 [migrate-wordpress-webinar]: https://www.brighttalk.com/webcast/10619/276851
