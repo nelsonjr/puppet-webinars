@@ -14,7 +14,7 @@
 
 set -e
 
-mysqldump wordpress | mysql --host=<%= db_ip %> --password=<%= password %> -u wp-db wordpress
-rsync -avzPH -e "ssh -i /home/wp-user/.ssh/id_rsa" /opt/wordpress/wp-content/uploads wp-user@<%= $host_ip %>:/opt/wordpress/wp-content/
+mysqldump --defaults-extra-file=/root/.my.cnf wordpress | mysql --host=<%= $db_ip %> --password=<%= $password %> -u wp-db wordpress
+rsync -avzPH -e "ssh -i /home/wp-user/.ssh/id_rsa -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" /opt/wordpress/wp-content/ wp-user@<%= $host_ip %>:/opt/wordpress/wp-content/
 
 touch /root/migration_completed
