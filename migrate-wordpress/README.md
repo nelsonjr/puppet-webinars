@@ -7,6 +7,7 @@
 - [Setup (before migration)](#setup-before-migration)
 - [Artifacts](#artifacts)
 - [Dependencies](#dependencies)
+    * [Modules](#modules)
     * [Files](#files)
     * Instance
         - [Security Scopes](#security-scopes)
@@ -63,6 +64,18 @@ your eclipse needs:
   the Puppet Master.
 
 ## Dependencies
+
+### Modules
+
+### On Admin Workstation
+
+- [`google/gauth`][google-gauth]
+- [`google/gcompute`][google-gcompute]
+- [`google/gsql`][google-sql]
+
+### On Puppet Master
+
+Refer to [`control/Puppetfile`][puppetfile] for complete list.
 
 ### Files
 
@@ -151,5 +164,9 @@ TODO(ody): Please fill this in.
 [wp-create]: wp-create.pp
 [profile]: control/modules/profile
 [puppetfile]: control/Puppetfile
+
+[google-gauth]: https://forge.puppet.com/google/gauth
+[google-gcompute]: https://forge.puppet.com/google/gcompute
+[google-sql]: https://forge.puppet.com/google/gsql
 
 [migrate-wordpress-webinar]: https://www.brighttalk.com/webcast/10619/276851
