@@ -49,11 +49,15 @@ your eclipse needs:
 
 - Throughout the migration: `staging=1`
 
+    ```
     FACTER_staging=1 ... puppet apply wp-create.pp
+    ```
 
 - After migration is complete (to flip DNS): remove staging fact
 
+    ```
     ... puppet apply wp-create.pp
+    ```
 
 ### `machine_name` fact
 The Puppet manifest requires a fact named `machine_name`, which specifies the
