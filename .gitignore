@@ -1,3 +1,2 @@
-# We want neither deleting our credential file nor checking it under source
-# control.
+# We don't want our credential ending commited to source repository.
 my_account.json
