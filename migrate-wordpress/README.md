@@ -1,4 +1,4 @@
-# Migrating a Wordpress to Google Cloud Platform
+# Migrating a live Wordpress to Google Cloud Platform
 
 In this webinar we will migrate a live Wordpress site to Google Cloud Platform
 (GCP), without interruption of service to end users.
