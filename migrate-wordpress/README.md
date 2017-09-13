@@ -68,9 +68,14 @@ your eclipse needs:
 ### Modules
 
 - On Admin Workstation
-    * [`google/gauth`][google-gauth]
-    * [`google/gcompute`][google-gcompute]
-    * [`google/gsql`][google-sql]
+    * [`google/gcompute`][google-gcompute]: Configures static IP, VM instance
+    * [`google/gsql`][google-sql]: Configures Cloud SQL instance and user
+    * [`google/gdns`][google-dns]: Configures Cloud DNS records
+    * [`google/gauth`][google-gauth]: Authorize requests to GCP
+
+> Optionally you can install the [`google/cloud`][google-cloud] module that
+> bundles all supported Google Cloud Platform products together.
+
 - On Puppet Master
     * Refer to [`control/Puppetfile`][puppetfile] for complete list.
 
@@ -165,5 +170,7 @@ TODO(ody): Please fill this in.
 [google-gauth]: https://forge.puppet.com/google/gauth
 [google-gcompute]: https://forge.puppet.com/google/gcompute
 [google-sql]: https://forge.puppet.com/google/gsql
+[google-dns]: https://forge.puppet.com/google/gdns
+[google-cloud]: https://forge.puppet.com/google/cloud
 
 [migrate-wordpress-webinar]: https://www.brighttalk.com/webcast/10619/276851
