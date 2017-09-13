@@ -1,6 +1,20 @@
 # Migrating a live Wordpress to Google Cloud Platform
 
-[TOC]
+## Contents
+
+- [Introduction](#introduction)
+- [Links](#links)
+- [Setup (before migration)](#setup-before-migration)
+- [Artifacts](#artifacts)
+- [Dependencies](#dependencies)
+    * [Files](#files)
+    * Instance
+        - [Security Scopes](#security-scopes)
+        - [Metadata](#metadata)
+- [Running `wp-create.pp`](#running-wp-createpp)
+- [Migration Plan][]
+
+## Introduction
 
 In this webinar we will migrate a live Wordpress site to Google Cloud Platform
 (GCP), without interruption of service to end users.
@@ -50,6 +64,8 @@ your eclipse needs:
 
 ## Dependencies
 
+### Files
+
 - `bootstrap.sh` be available in a Google Cloud Storage bucket, or other
   verifiable HTTPS or secure location
 - `puppet-ca-cert.pem` be available in a Google Cloud Storage bucket (or
@@ -57,7 +73,7 @@ your eclipse needs:
 
 ### Instance
 
-#### Scopes
+#### Security Scopes
 
 The migration requires the following scopes to be present on the machine:
 
