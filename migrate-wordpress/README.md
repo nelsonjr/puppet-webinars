@@ -24,8 +24,8 @@ your eclipse needs:
 
 ## Links
 
-- [Webinar Site][migrate-wordpress-webinar]
-- Recorded Session (coming soon)
+- [Webinar][migrate-wordpress-webinar]
+- [Recorded Session][migrate-wordpress-webinar]
 - Slides (coming soon)
 
 ## Setup (before migration)
