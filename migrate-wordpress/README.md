@@ -75,7 +75,7 @@ your eclipse needs:
     * Refer to [`control/Puppetfile`][puppetfile] for complete list.
 
 - On Bootstrapper
-    * [`google/glogging`][google-glogging]: Installs Stackdriver Logging Agent to the WP instance
+    * [`google/glogging`][google-logging]: Installs Stackdriver Logging Agent to the WP instance
 
 ### Files
 
@@ -169,6 +169,7 @@ TODO(ody): Please fill this in.
 [google-gcompute]: https://forge.puppet.com/google/gcompute
 [google-sql]: https://forge.puppet.com/google/gsql
 [google-dns]: https://forge.puppet.com/google/gdns
+[google-logging]: https://forge.puppet.com/google/glogging
 [google-cloud]: https://forge.puppet.com/google/cloud
 
 [migrate-wordpress-webinar]: https://www.brighttalk.com/webcast/10619/276851
