@@ -24,9 +24,7 @@ your eclipse needs:
 
 ## Links
 
-- [Webinar][migrate-wordpress-webinar]
-- [Recorded Session][migrate-wordpress-webinar]
-- Slides (coming soon)
+- [Webinar & Recorded Session][migrate-wordpress-webinar]
 
 ## Setup (before migration)
 
@@ -75,6 +73,9 @@ your eclipse needs:
 
 - On Puppet Master
     * Refer to [`control/Puppetfile`][puppetfile] for complete list.
+
+- On Bootstrapper
+    * [`google/glogging`][google-glogging]: Installs Stackdriver Logging Agent to the WP instance
 
 ### Files
 
