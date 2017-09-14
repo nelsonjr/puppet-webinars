@@ -7,9 +7,7 @@
 In this webinar we will migrate a live Wordpress site to Google Cloud Platform,
 without interruption of service to end users.
 
-- [Webinar Site][migrate-wordpress-webinar]
-- [Recorded Session][migrate-wordpress-webinar]
-- Slides (coming soon)
+- [Webinar Site & Video][migrate-wordpress-webinar]
 - [Source Code][migrate-wordpress-source] used during webinar
 
 [migrate-wordpress-webinar]: https://www.brighttalk.com/webcast/10619/276851
