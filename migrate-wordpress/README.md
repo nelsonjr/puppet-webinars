@@ -150,8 +150,19 @@ Example (we chose to define the fact as environment variable):
       Create a machine to host the Wordpress server
 
 2. On Puppet Enterprise
-
-TODO(ody): Please fill this in.
+   - Wait for new GCE instance to come online after GCP infrastructure **Run #3**
+   - After checking that a fresh Wordpress is online, pin original source
+     instance to the `Migrate` node group in the `Classification` section of
+     the Puppet Enterprise Console
+   - Still in the `Migrate` node group, select the "Matching nodes" tab and you'll
+     see the source listed.  Go to the node's page by clicking on it, you'll see
+     `Run Puppet...` at the top when it loads.  Expand the dropdown and press
+     `Run`
+   - Once the new site has been validated, go back to the `Classification`
+     section and drill into `Wordpress GCE`.  Here you'll select the `Classes`
+     tab, find `staged` and change the value to **false**
+   - As with the source machine, go to `Matching nodes`, select our new target,
+     expand `Run Puppet...`, press `Run`
 
 3. On Google Cloud Platform
     - Run #4: `puppet apply wp-create.pp` _(**without** `staging=1`)_:
