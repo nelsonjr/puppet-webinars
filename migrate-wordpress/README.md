@@ -12,6 +12,7 @@ your eclipse needs:
 
 - [Links](#links)
 - [Setup (before migration)](#setup-before-migration)
+    * [Puppet Master Setup](#puppet-master-setup)
 - [Artifacts](#artifacts)
 - [Dependencies](#dependencies)
     * [Modules](#modules)
@@ -44,6 +45,9 @@ your eclipse needs:
 - Puppet Enterprise is running on GCP and has address
   [`https://pe-demo.graphite.cloudnativeapp.com`][pe-demo]
 
+### Puppet Master Setup
+
+TODO(ody): Please document this.
 
 ## Artifacts
 
