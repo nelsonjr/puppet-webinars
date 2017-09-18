@@ -81,6 +81,21 @@ TODO(ody): Please document this.
 - On Bootstrapper
     * [`google/glogging`][google-logging]: Installs Stackdriver Logging Agent to the WP instance
 
+### Puppet Enterprise
+
+- Version
+    * Demoed on 2017.2
+    * Should work all the back to 2016.3 where PQL was introduced
+- If no PE, it will still work aside from using the console to classify and run Puppet but recent versions of Puppet are required; these were not tested but are circa the era needed.
+    * PuppetDB 4.2
+    * Puppet Agent 1.2.0 (Puppet 4.2.0 & Facter 3.0)
+    * Puppet Server 2.1
+- Classes; when demo in completed you should have something similar to this setup, as it pertains to node classification (only listing out items that are outside the PE defaults)
+    * Three node groups
+        + **Wordpress AWS** where you'll assign initial node running Wordpress and `Class[profile::wordpress]` wth parameters set accordingly: `db_host` should equal IP or hostname of remote SQL database, `root_db_password` should equal the password that is already set for remote database's *admin* user, `db_password` should equal the password you wish the new Wordpress database to have, `staging` unset because its not relavent.
+        + **Wordpress GCE** where you'll assign your new target node for running Wordpress and `Class[profile::wordpress::migrate::prep]` with no parameters set and `Class[profile::wordpress]` with parameters set accordingly: `db_host` unset because it can be autodetected, `root_db_password` should equal the password that is already set for remote database's *migration* user, `db_password` should equal the password that you wish the new Wordpress database to have, and `staging` initially set to *true* but you'll change it to *false* as you go through the migration process.
+        + **Migrate** with `Class[profile::wordpress::migrate]` assigned and the single parameter `auto_migrate` set to *true*; as you go through the migration process you'll assign to this goup the same node that was also assigned to **Wordpress AWS**
+
 ### Files
 
 - `bootstrap.sh` be available in a Google Cloud Storage bucket, or other
@@ -138,7 +153,7 @@ Example (we chose to define the fact as environment variable):
     FACTER_staging=1 FACTER_machine_name=wordpress-1 puppet apply wp-create.pp
 
 ## Migration Plan
- 
+
 > Remember to run all `puppet apply wp-create.pp` with the `staging=1` fact
 > defined to avoid flipping the DNS records prematurely and cause service
 > interruption.
